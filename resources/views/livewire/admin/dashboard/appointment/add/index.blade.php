@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group input-group-outline my-3">
-                                        <select wire:model.defer='site_id'
+                                        <select wire:model='site_id'
                                             class="form-control  @error('site_id') is-invalid @enderror">
                                             <option value="">Select Site</option>
                                             @foreach (Site::all() as $site)
@@ -78,9 +78,18 @@
                                         <select wire:model.defer='trainer_id'
                                             class="form-control  @error('trainer_id') is-invalid @enderror">
                                             <option value="">Select Trainer</option>
-                                            @foreach (Trainer::all() as $triner)
-                                                <option value="{{ $triner->id }}">{{ $triner->name }}</option>
-                                            @endforeach
+                                            @if ($site_id)
+                                                @if ($site = Site::Info($site_id))
+                                                    @foreach ($site->trainers as $trainer)
+                                                        <option value="{{ $trainer->id }}">{{ $trainer->name }}
+                                                        </option>
+                                                    @endforeach
+                                                @else
+                                                    <option value="">No Trainers Found</option>
+                                                @endif
+                                            @else
+                                                <option value="">Select Site First</option>
+                                            @endif
                                         </select>
                                         @error('trainer_id')
                                             <span class="invalid-feedback" role="alert">
@@ -94,7 +103,8 @@
                                 <div class="col-md-6">
                                     <button type="button" class="btn btn-primary" wire:attr='disabled'
                                         wire:click='AddAppointment'>
-                                        <span wire:loading class="spinner-border spinner-border-sm" role="status"
+                                        <span wire:loading wire:target='AddAppointment'
+                                            class="spinner-border spinner-border-sm" role="status"
                                             aria-hidden="true"></span>
                                         <span class="sr-only">Loading...</span>
                                         Add Appointment
