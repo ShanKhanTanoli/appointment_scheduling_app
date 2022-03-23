@@ -25,7 +25,7 @@ class Index extends Component
         ]);
         try{
             Auth::user()->update(['password' => bcrypt($validated['password'])]);
-            session()->flash('success','Profile Updated Successfully');
+            session()->flash('success','Password Updated Successfully');
             $this->reset(['password','password_confirmation']);
         }catch(Exception $e){
             return session()->flash('error',$e->getMessage());
