@@ -1,59 +1,83 @@
-<x-layouts.base>
-    {{-- If the user is authenticated --}}
-    @auth()
-        {{-- If the user is authenticated on the static sign up or the sign up page --}}
-        @if (in_array(request()->route()->getName(),['static-sign-up', 'sign-up'],))
-            @include('layouts.navbars.guest.sign-up')
-            {{ $slot }}
-            @include('layouts.footers.guest.with-socials')
-            {{-- If the user is authenticated on the static sign in or the login page --}}
-        @elseif (in_array(request()->route()->getName(),['sign-in', 'login'],))
-            @include('layouts.navbars.guest.login')
-            {{ $slot }}
-            @include('layouts.footers.guest.description')
-        @elseif (in_array(request()->route()->getName(),['profile', 'my-profile'],))
-            @include('layouts.navbars.auth.sidebar')
-            <div class="main-content position-relative bg-gray-100">
-                @include('layouts.navbars.auth.nav-profile')
-                <div>
-                    {{ $slot }}
-                    {{-- @include('layouts.footers.auth.footer') --}}
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{ config('app.name', 'Laravel') }}
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav me-auto">
+
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ms-auto">
+                        <!-- Authentication Links -->
+                        @guest
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
+
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endguest
+                    </ul>
                 </div>
             </div>
-            @include('components.plugins.fixed-plugin')
-        @else
-            @include('layouts.navbars.auth.sidebar')
-            @include('layouts.navbars.auth.nav')
-            @include('components.plugins.fixed-plugin')
-            {{ $slot }}
-            {{-- <main>
-                <div class="container-fluid">
-                    <div class="row">
-                        @include('layouts.footers.auth.footer')
-                    </div>
-                </div>
-            </main> --}}
-        @endif
-    @endauth
+        </nav>
 
-    {{-- If the user is not authenticated (if the user is a guest) --}}
-    @guest
-        {{-- If the user is on the login page --}}
-        @if (!auth()->check() && in_array(request()->route()->getName(),['login'],))
-            {{-- @include('layouts.navbars.guest.login') --}}
-            {{ $slot }}
-            <div class="mt-5">
-                {{-- @include('layouts.footers.guest.with-socials') --}}
-            </div>
-
-            {{-- If the user is on the sign up page --}}
-        @elseif (!auth()->check() && in_array(request()->route()->getName(),['sign-up'],))
-            <div>
-                {{-- @include('layouts.navbars.guest.sign-up') --}}
-                {{ $slot }}
-                {{-- @include('layouts.footers.guest.with-socials') --}}
-            </div>
-        @endif
-    @endguest
-
-</x-layouts.base>
+        <main class="py-4">
+            @yield('content')
+        </main>
+    </div>
+</body>
+</html>

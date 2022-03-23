@@ -1,23 +1,23 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Admin\Dashboard\Index;
 
-use App\Http\Livewire\Auth\ForgotPassword;
-use App\Http\Livewire\Auth\ResetPassword;
-use App\Http\Livewire\Auth\SignUp;
-use App\Http\Livewire\Auth\Login;
-use App\Http\Livewire\Index;
-use App\Http\Livewire\Billing;
-use App\Http\Livewire\Profile;
-use App\Http\Livewire\Tables;
-use App\Http\Livewire\StaticSignIn;
-use App\Http\Livewire\StaticSignUp;
-use App\Http\Livewire\Rtl;
+use App\Http\Livewire\Admin\Dashboard\Trainers\Index as ViewAllTrainers;
+use App\Http\Livewire\Admin\Dashboard\Trainers\Add\Index as AddTrainer;
+use App\Http\Livewire\Admin\Dashboard\Trainers\Edit\Index as EditTrainer;
 
-use App\Http\Livewire\LaravelExamples\UserProfile;
-use App\Http\Livewire\LaravelExamples\UserManagement;
+use App\Http\Livewire\Admin\Dashboard\Site\Index as ViewAllSites;
+use App\Http\Livewire\Admin\Dashboard\Site\Add\Index as AddSite;
+use App\Http\Livewire\Admin\Dashboard\Site\Edit\Index as EditSite;
 
-use Illuminate\Http\Request;
+use App\Http\Livewire\Admin\Dashboard\Appointment\Index as ViewAllAppointments;
+use App\Http\Livewire\Admin\Dashboard\Appointment\Add\Index as AddAppointment;
+use App\Http\Livewire\Admin\Dashboard\Appointment\Edit\Index as EditAppointment;
+
+use App\Http\Livewire\Admin\Dashboard\Profile\Index as EditProfile;
+use App\Http\Livewire\Admin\Dashboard\Password\Index as EditPassword;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,24 +30,41 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', Login::class)->name('login');
 
-Route::get('/sign-up', SignUp::class)->name('sign-up');
-Route::get('/login', Login::class)->name('login');
+Auth::routes();
 
-Route::get('/login/forgot-password', ForgotPassword::class)->name('forgot-password');
- 
-Route::get('/reset-password/{id}',ResetPassword::class)->name('reset-password')->middleware('signed');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', Index::class)->name('dashboard');
-    Route::get('/billing', Billing::class)->name('billing');
-    Route::get('/profile', Profile::class)->name('profile');
-    Route::get('/tables', Tables::class)->name('tables');
-    Route::get('/static-sign-in', StaticSignIn::class)->name('sign-in');
-    Route::get('/static-sign-up', StaticSignUp::class)->name('static-sign-up');
-    Route::get('/rtl', Rtl::class)->name('rtl');
-    Route::get('/user-profile', UserProfile::class)->name('user-profile');
-    Route::get('/user-management', UserManagement::class)->name('user-management');
+Route::get('/', function () {
+    return redirect(route('AdminDashboard'));
 });
 
+Route::get('/home', function () {
+    return redirect(route('AdminDashboard'));
+})->name('home');
+
+Route::middleware('auth')->prefix('Admin')->group(function () {
+
+    Route::get('Dashboard', Index::class)->name('AdminDashboard');
+
+    /*Begin::Trainer Operations*/
+    Route::get('Trainers', ViewAllTrainers::class)->name('AdminTrainers');
+    Route::get('AddTrainer', AddTrainer::class)->name('AdminAddTrainer');
+    Route::get('EditTrainer/{slug}', EditTrainer::class)->name('AdminEditTrainer');
+    /*End::Trainer Operations*/
+
+    /*Begin::Site Operations*/
+    Route::get('Sites', ViewAllSites::class)->name('AdminSites');
+    Route::get('AddSite', AddSite::class)->name('AdminAddSite');
+    Route::get('EditSite/{slug}', EditSite::class)->name('AdminEditSite');
+    /*End::Site Operations*/
+
+    /*Begin::Appointment Operations*/
+    Route::get('Appointments', ViewAllAppointments::class)->name('AdminAppointments');
+    Route::get('AddAppointment', AddAppointment::class)->name('AdminAddAppointment');
+    Route::get('EditAppointment/{slug}', EditAppointment::class)->name('AdminEditAppointment');
+    /*End::Appointment Operations*/
+
+    /*Begin::Appointment Operations*/
+    Route::get('EditProfile', EditProfile::class)->name('AdminEditProfile');
+    Route::get('EditPassword', EditPassword::class)->name('AdminEditPassword');
+    /*End::Appointment Operations*/
+});

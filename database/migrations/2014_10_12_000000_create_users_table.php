@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -20,17 +20,14 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('phone')->nullable();
-            $table->string('location')->nullable();
-            $table->text('about')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
 
         User::create([
-          'name' => 'admin',
-          'email' => 'admin@softui.com',  
-          'password' => bcrypt('secret'),
+            'name' => 'Admin',
+            'email' => 'admin@email.com',
+            'password' => bcrypt('password'),
         ]);
     }
 
@@ -43,4 +40,4 @@ class CreateUsersTable extends Migration
     {
         Schema::dropIfExists('users');
     }
-}
+};
