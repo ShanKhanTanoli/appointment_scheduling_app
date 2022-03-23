@@ -54,7 +54,7 @@
                     <div class="text-end pt-1">
                         <p class="text-sm mb-0 text-capitalize">Total Appointments</p>
                         <h4 class="mb-0">
-                            {{ Site::count() }}
+                            {{ Appointment::count() }}
                         </h4>
                     </div>
                 </div>

@@ -21,6 +21,13 @@ class Index extends Component
         ->section('content');
     }
 
+    public function ViewTrainers($id)
+    {
+        if($site = Site::find($id)){
+            return redirect(route('AdminSiteTrainers',$site->slug));
+        }return session()->flash('error','Something went wrong');
+    }
+
     public function Edit($id)
     {
         if($site = Site::find($id)){

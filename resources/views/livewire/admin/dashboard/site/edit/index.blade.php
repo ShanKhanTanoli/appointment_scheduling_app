@@ -10,7 +10,7 @@
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                         <h6 class="text-white text-capitalize ps-3">
-                            Edit Site
+                            Update Site
                         </h6>
                     </div>
                 </div>
@@ -33,11 +33,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <button type="button" class="btn btn-primary" wire:attr='disabled'
-                                        wire:click='EditSite'>
+                                        wire:click='UpdateSite'>
                                         <span wire:loading class="spinner-border spinner-border-sm" role="status"
                                             aria-hidden="true"></span>
                                         <span class="sr-only">Loading...</span>
-                                        Edit Site
+                                        Update Site
                                     </button>
                                 </div>
                             </div>

@@ -11,6 +11,7 @@ use App\Http\Livewire\Admin\Dashboard\Trainers\Edit\Index as EditTrainer;
 use App\Http\Livewire\Admin\Dashboard\Site\Index as ViewAllSites;
 use App\Http\Livewire\Admin\Dashboard\Site\Add\Index as AddSite;
 use App\Http\Livewire\Admin\Dashboard\Site\Edit\Index as EditSite;
+use App\Http\Livewire\Admin\Dashboard\Site\Trainers\Index as SiteTrainers;
 
 use App\Http\Livewire\Admin\Dashboard\Appointment\Index as ViewAllAppointments;
 use App\Http\Livewire\Admin\Dashboard\Appointment\Add\Index as AddAppointment;
@@ -55,6 +56,7 @@ Route::middleware('auth')->prefix('Admin')->group(function () {
     Route::get('Sites', ViewAllSites::class)->name('AdminSites');
     Route::get('AddSite', AddSite::class)->name('AdminAddSite');
     Route::get('EditSite/{slug}', EditSite::class)->name('AdminEditSite');
+    Route::get('SiteTrainers/{slug}', SiteTrainers::class)->name('AdminSiteTrainers');
     /*End::Site Operations*/
 
     /*Begin::Appointment Operations*/

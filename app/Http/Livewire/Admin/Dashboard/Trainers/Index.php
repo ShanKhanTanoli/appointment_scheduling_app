@@ -14,7 +14,7 @@ class Index extends Component
 
     public function render()
     {
-        $trainers = Trainer::paginate(6);
+        $trainers = Trainer::latest()->paginate(6);
         return view('livewire.admin.dashboard.trainers.index')
         ->with(['trainers' => $trainers])
         ->extends('layouts.dashboard')

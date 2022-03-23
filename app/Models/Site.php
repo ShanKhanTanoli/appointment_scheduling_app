@@ -19,4 +19,11 @@ class Site extends Model
     {
         return $this->hasMany(Trainer::class);
     }
+
+    public static function Info($site)
+    {
+        if($site = Site::find($site)){
+            return $site;
+        }return false;
+    }
 }

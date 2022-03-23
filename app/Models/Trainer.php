@@ -18,4 +18,11 @@ class Trainer extends Model
     {
         return $this->belongsTo(Site::class);
     }
+
+    public static function Info($trainer)
+    {
+        if($trainer = Trainer::find($trainer)){
+            return $trainer;
+        }return false;
+    }
 }

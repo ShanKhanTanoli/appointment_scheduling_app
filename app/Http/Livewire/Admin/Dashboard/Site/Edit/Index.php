@@ -33,7 +33,7 @@ class Index extends Component
         ->section('content');
     }
 
-    public function EditSite()
+    public function UpdateSite()
     {
         $validated = $this->validate([
             'code' => 'required',
@@ -41,11 +41,8 @@ class Index extends Component
         try{
             $this->EditSite->update($validated);
             session()->flash('success','Site Updated Successfully');
-            return redirect(route('AdminSites'));
         }catch(Exception $e){
             return session()->flash('error',$e->getMessage());
         }
-
-
     }
 }
