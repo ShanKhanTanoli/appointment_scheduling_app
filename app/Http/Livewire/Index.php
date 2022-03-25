@@ -11,14 +11,13 @@ class Index extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $site;
     public $site_id;
 
     public function render()
     {
         $sites = Site::latest()->paginate(6);
         return view('livewire.index')
-            ->with(['sites' => $sites, 'site' => $this->site])
+            ->with(['sites' => $sites])
             ->extends('layouts.auth')
             ->section('content');
     }
@@ -34,9 +33,9 @@ class Index extends Component
 
     public function MakeAppointment($id)
     {
-        $this->site = Site::find($id);
-        if ($this->site) {
-            $this->emit('site', $this->site);
+        $site = Site::find($id);
+        if ($site) {
+            return redirect(route('MakeAppointment', $site->slug));
         } else {
             return session()->flash('error', 'Something went wrong');
         }

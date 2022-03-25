@@ -1,73 +1,78 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Dashboard\Appointment\Edit;
+namespace App\Http\Livewire\User\Appointment;
 
 use Exception;
+use App\Models\Site;
 use App\Models\Trainer;
 use Livewire\Component;
 use App\Models\Appointment;
+use Illuminate\Support\Str;
 use App\Notifications\EmailNotification;
 
 class Index extends Component
 {
+    public $site;
+    public $trainers;
+
     public $first_name;
     public $last_name;
     public $alias;
-    public $site_id;
     public $trainer_id;
-
-    public $appointment;
 
     public function mount($slug)
     {
-        $this->appointment = Appointment::where('slug', $slug)
+        $this->site = Site::where('slug', $slug)
             ->first();
-        if ($this->appointment) {
-
-            $this->first_name = $this->appointment->first_name;
-            $this->last_name = $this->appointment->last_name;
-            $this->alias = $this->appointment->alias;
-            $this->site_id = $this->appointment->site_id;
-            $this->trainer_id = $this->appointment->trainer_id;
+        if ($this->site) {
+            $this->site_id = $this->site->id;
+            $this->trainers = $this->site->trainers;
         } else {
             session()->flash('error', 'Something went wrong');
-            return redirect(route('AdminAppointments'));
+            return redirect(route('main'));
         }
     }
 
     public function render()
     {
-        return view('livewire.admin.dashboard.appointment.edit.index')
-            ->extends('layouts.dashboard')
+        return view('livewire.user.appointment.index')
+            ->with(['site' => $this->site, 'trainers' => $this->trainers])
+            ->extends('layouts.auth')
             ->section('content');
     }
 
-    public function UpdateAppointment()
+    public function AddAppointment()
     {
         $validated = $this->validate([
             'first_name' => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
             'alias' => 'required|string|min:3',
-            'site_id' => 'required|numeric',
             'trainer_id' => 'required|numeric',
         ]);
 
         $trainer = Trainer::find($validated['trainer_id']);
-        
+
         $data = [
             'first_name' => $validated['first_name'],
             'last_name' => $validated['last_name'],
             'alias' => $validated['alias'],
         ];
-        
+
+        $appoint_data = [
+            'slug' => strtoupper(Str::random(20)),
+            'site_id' => $this->site->id,
+        ];
+
         try {
-            $this->appointment->update($validated);
-            session()->flash('success', 'Appointment Updated Successfully');
-            
+            Appointment::create(array_merge($validated, $appoint_data));
+
+            session()->flash('success', 'Appointment Added Successfully');
+
             //$trainer->notify(new EmailNotification($data));
 
-            session()->flash('success','An Email has been sent to '.$trainer->name);
+            session()->flash('success', 'An Email has been sent to ' . $trainer->name);
 
+            return redirect(route('main'));
         } catch (Exception $e) {
             return session()->flash('error', $e->getMessage());
         }

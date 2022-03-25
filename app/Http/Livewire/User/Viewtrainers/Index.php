@@ -2,15 +2,17 @@
 
 namespace App\Http\Livewire\User\Viewtrainers;
 
+use Exception;
 use App\Models\Site;
 use App\Models\Trainer;
 use Livewire\Component;
+use App\Models\Appointment;
+use Illuminate\Support\Str;
 
 class Index extends Component
 {
     public $site;
     public $site_id;
-
     public $trainers;
 
     public function mount($slug)
@@ -18,6 +20,7 @@ class Index extends Component
         $this->site = Site::where('slug', $slug)
             ->first();
         if ($this->site) {
+
             $this->site_id = $this->site->id;
             $this->trainers = $this->site->trainers;
         } else {
@@ -36,8 +39,9 @@ class Index extends Component
 
     public function MakeAppointment($id)
     {
-        if ($this->site) {
-            $this->emit('site', $this->site);
+        $site = Site::find($id);
+        if ($site) {
+            return redirect(route('MakeAppointment', $site->slug));
         } else {
             return session()->flash('error', 'Something went wrong');
         }

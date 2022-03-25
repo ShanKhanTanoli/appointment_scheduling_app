@@ -1,11 +1,11 @@
-<div class="modal fade" id="MakeAppointment" tabindex="-1" role="dialog" aria-labelledby="MakeAppointment"
-    aria-hidden="true">
+<div wire:ignore.self class="modal fade" id="MakeAppointment" tabindex="-1" role="dialog"
+    aria-labelledby="MakeAppointment" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                 <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                     <h6 class="text-white text-capitalize ps-3">
-                        Make Appointment
+                        Make Appointment on Site ({{ $site->code }})
                     </h6>
                 </div>
             </div>
@@ -49,23 +49,6 @@
                                                 class="form-control  @error('alias') is-invalid @enderror"
                                                 placeholder="Enter Alias">
                                             @error('alias')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="input-group input-group-outline my-3">
-                                            <select wire:model='site_id'
-                                                class="form-control  @error('site_id') is-invalid @enderror">
-                                                <option value="">Select Site</option>
-                                                @foreach (Site::all() as $site)
-                                                    <option value="{{ $site->id }}">{{ $site->code }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            @error('site_id')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

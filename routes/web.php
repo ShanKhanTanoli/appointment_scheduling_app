@@ -1,29 +1,36 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Models\Setting;
 
 use App\Http\Livewire\Index;
-use App\Http\Livewire\User\Viewtrainers\Index as Viewtrainers;
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Config;
+
+use App\Notifications\EmailNotification;
 use App\Http\Livewire\Admin\Dashboard\Index as AdminDashboard;
-
-use App\Http\Livewire\Admin\Dashboard\Trainers\Index as ViewAllTrainers;
-use App\Http\Livewire\Admin\Dashboard\Trainers\Add\Index as AddTrainer;
-use App\Http\Livewire\Admin\Dashboard\Trainers\Edit\Index as EditTrainer;
-
-use App\Http\Livewire\Admin\Dashboard\Site\Index as ViewAllSites;
+use App\Http\Livewire\User\Viewtrainers\Index as Viewtrainers;
+use App\Http\Livewire\User\Appointment\Index as MakeAppointment;
 use App\Http\Livewire\Admin\Dashboard\Site\Add\Index as AddSite;
-use App\Http\Livewire\Admin\Dashboard\Site\Edit\Index as EditSite;
-use App\Http\Livewire\Admin\Dashboard\Site\Trainers\Index as SiteTrainers;
 
-use App\Http\Livewire\Admin\Dashboard\Appointment\Index as ViewAllAppointments;
-use App\Http\Livewire\Admin\Dashboard\Appointment\Add\Index as AddAppointment;
-use App\Http\Livewire\Admin\Dashboard\Appointment\Edit\Index as EditAppointment;
+use App\Http\Livewire\Admin\Dashboard\Settings\Index as Settings;
+use App\Http\Livewire\Admin\Dashboard\Site\Index as ViewAllSites;
+use App\Http\Livewire\Admin\Dashboard\Site\Edit\Index as EditSite;
 
 use App\Http\Livewire\Admin\Dashboard\Profile\Index as EditProfile;
 use App\Http\Livewire\Admin\Dashboard\Password\Index as EditPassword;
 
-use App\Http\Livewire\Admin\Dashboard\Settings\Index as Settings;
+use App\Http\Livewire\Admin\Dashboard\Trainers\Add\Index as AddTrainer;
+use App\Http\Livewire\Admin\Dashboard\Trainers\Index as ViewAllTrainers;
+use App\Http\Livewire\Admin\Dashboard\Trainers\Edit\Index as EditTrainer;
+use App\Http\Livewire\Admin\Dashboard\Site\Trainers\Index as SiteTrainers;
+use App\Http\Livewire\Admin\Dashboard\Appointment\Add\Index as AddAppointment;
+use App\Http\Livewire\Admin\Dashboard\Appointment\Index as ViewAllAppointments;
+use App\Http\Livewire\Admin\Dashboard\Appointment\Edit\Index as EditAppointment;
+use App\Mail\TrainerNotification;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +46,28 @@ use App\Http\Livewire\Admin\Dashboard\Settings\Index as Settings;
 
 Auth::routes();
 
+Route::get('debug', function () {
+
+    // config(['database.connections.mysql.from_address' => 'Shankhan']);
+
+    // dd(config('database.connections.mysql.from_address'));
+    
+    // config(['app.name' => Setting::Logo()]);
+
+    // dd(config('app.name'));
+
+    // $from = "support@email.com";
+
+    // $to = "shankhantanoli@gmail.com";
+
+    // $name = "shankhan";
+
+    // Mail::send(new TrainerNotification($from,$to,$name));
+
+    return "done";
+
+});
+
 
 Route::get('/home', function () {
     return redirect(route('AdminDashboard'));
@@ -50,6 +79,9 @@ Route::get('/',Index::class)
 
 Route::get('ViewTrainers/{slug}',Viewtrainers::class)
 ->name('viewtrainers');
+
+Route::get('MakeAppointment/{slug}',MakeAppointment::class)
+->name('MakeAppointment');
 
 /*Begin::Auth Group*/
 Route::middleware('auth')->prefix('Admin')->group(function () {

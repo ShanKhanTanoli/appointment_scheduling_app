@@ -10,9 +10,18 @@
                     <!--End::Alerts-->
                     <div class="card z-index-0 fadeIn3 fadeInBottom">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex">
                                 <h6 class="text-white text-capitalize ps-3">
                                     Site {{ $site->code }} - Total Trainers ({{ $site->trainers->count() }})
+                                </h6>
+                                <h6 class="text-white text-capitalize ps-3 text-end">
+                                    <button class="btn btn-sm btn-success"
+                                        wire:click='MakeAppointment({{ $site->id }})'>
+                                        <span wire:loading wire:target='MakeAppointment({{ $site->id }})'
+                                            class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                        Make Appointment
+                                    </button>
                                 </h6>
                             </div>
                         </div>
@@ -28,10 +37,6 @@
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Name
-                                            </th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Appointment
                                             </th>
                                         </tr>
                                     </thead>
@@ -59,21 +64,11 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="align-middle">
-                                                        <button class="btn btn-sm btn-success"
-                                                            wire:click='MakeAppointment("{{ $trainer->id }}")'>
-                                                            <span wire:loading
-                                                                wire:target='MakeAppointment("{{ $trainer->id }}")'
-                                                                class="spinner-border spinner-border-sm" role="status"
-                                                                aria-hidden="true"></span>
-                                                            Appointment
-                                                        </button>
-                                                    </td>
                                                 </tr>
                                             @endforeach
                                         @else
                                             <tr>
-                                                <td class="text-center" colspan="3">
+                                                <td class="text-center" colspan="2">
                                                     <strong class="text-danger">
                                                         No Data Found
                                                     </strong>
@@ -90,4 +85,3 @@
         </div>
     </div>
 </main>
-@include('partials.make-appointment')

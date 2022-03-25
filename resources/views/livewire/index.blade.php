@@ -144,4 +144,3 @@
         </div>
     </div>
 </main>
-@include('partials.make-appointment')

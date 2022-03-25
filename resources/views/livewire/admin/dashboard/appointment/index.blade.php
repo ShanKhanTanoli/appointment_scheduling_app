@@ -38,6 +38,9 @@
                                         Trainer
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Created At
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Edit
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -79,7 +82,11 @@
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">
-                                                        {{ $apointment->alias }}
+                                                        @if (strlen($apointment->alias) > 20)
+                                                            {{ substr(0, 20, $apointment->alias) }}...
+                                                        @else
+                                                            {{ $apointment->alias }}
+                                                        @endif
                                                     </h6>
                                                 </div>
                                             </div>
@@ -89,13 +96,13 @@
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">
                                                         @if ($site = Site::Info($apointment->site_id))
-                                                        <span class="badge bg-gradient-dark">
-                                                            {{ $site->code }}
-                                                        </span>
+                                                            <span class="badge bg-gradient-dark">
+                                                                {{ $site->code }}
+                                                            </span>
                                                         @else
-                                                        <span class="badge bg-gradient-danger">
-                                                            No Site
-                                                        </span>
+                                                            <span class="badge bg-gradient-danger">
+                                                                No Site
+                                                            </span>
                                                         @endif
                                                     </h6>
                                                 </div>
@@ -106,14 +113,23 @@
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">
                                                         @if ($trainer = Trainer::Info($apointment->trainer_id))
-                                                        <span class="badge bg-gradient-dark">
-                                                            {{ $trainer->name }}
-                                                        </span>
+                                                            <span class="badge bg-gradient-dark">
+                                                                {{ $trainer->name }}
+                                                            </span>
                                                         @else
-                                                        <span class="badge bg-gradient-danger">
-                                                            No Trainer
-                                                        </span>
+                                                            <span class="badge bg-gradient-danger">
+                                                                No Trainer
+                                                            </span>
                                                         @endif
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">
+                                                        {{ date('d M Y', strtotime($apointment->created_at)) }}
                                                     </h6>
                                                 </div>
                                             </div>

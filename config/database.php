@@ -51,6 +51,10 @@ return [
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
+            'encryption' => env('MAIL_ENCRYPTION', 'ssl'),
+            'from_address' => env('MAIL_FROM_ADDRESS', ''),
+            'from_name' => env('MAIL_FROM_NAME', ''),
+
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
