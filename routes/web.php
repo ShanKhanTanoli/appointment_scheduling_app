@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\Admin\Dashboard\Index;
+
+use App\Http\Livewire\Index;
+use App\Http\Livewire\User\Viewtrainers\Index as Viewtrainers;
+use App\Http\Livewire\Admin\Dashboard\Index as AdminDashboard;
 
 use App\Http\Livewire\Admin\Dashboard\Trainers\Index as ViewAllTrainers;
 use App\Http\Livewire\Admin\Dashboard\Trainers\Add\Index as AddTrainer;
@@ -20,6 +23,8 @@ use App\Http\Livewire\Admin\Dashboard\Appointment\Edit\Index as EditAppointment;
 use App\Http\Livewire\Admin\Dashboard\Profile\Index as EditProfile;
 use App\Http\Livewire\Admin\Dashboard\Password\Index as EditPassword;
 
+use App\Http\Livewire\Admin\Dashboard\Settings\Index as Settings;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,17 +39,22 @@ use App\Http\Livewire\Admin\Dashboard\Password\Index as EditPassword;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return redirect(route('AdminDashboard'));
-});
 
 Route::get('/home', function () {
     return redirect(route('AdminDashboard'));
 })->name('home');
 
+
+Route::get('/',Index::class)
+->name('main');
+
+Route::get('ViewTrainers/{slug}',Viewtrainers::class)
+->name('viewtrainers');
+
+/*Begin::Auth Group*/
 Route::middleware('auth')->prefix('Admin')->group(function () {
 
-    Route::get('Dashboard', Index::class)->name('AdminDashboard');
+    Route::get('Dashboard', AdminDashboard::class)->name('AdminDashboard');
 
     /*Begin::Trainer Operations*/
     Route::get('Trainers', ViewAllTrainers::class)->name('AdminTrainers');
@@ -69,4 +79,10 @@ Route::middleware('auth')->prefix('Admin')->group(function () {
     Route::get('EditProfile', EditProfile::class)->name('AdminEditProfile');
     Route::get('EditPassword', EditPassword::class)->name('AdminEditPassword');
     /*End::Appointment Operations*/
+
+    /*Begin::Appointment Operations*/
+    Route::get('Settings', Settings::class)->name('AdminSettings');
+    /*End::Appointment Operations*/
+
 });
+/*End::Auth Group*/

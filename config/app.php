@@ -194,6 +194,7 @@ return [
 
         'Site' => App\Models\Site::class,
         'Trainer' => App\Models\Trainer::class,
+        'Setting' => App\Models\Setting::class,
         'Appointment' => App\Models\Appointment::class,
         
     ])->toArray(),
