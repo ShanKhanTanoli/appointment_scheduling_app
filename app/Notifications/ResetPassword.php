@@ -2,26 +2,30 @@
 
 namespace App\Notifications;
 
-use App\Models\Setting;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
+use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
-class EmailNotification extends Notification
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\URL;
+
+class ResetPassword extends Notification
 {
     use Queueable;
 
-    public $data;
+    public $token;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($token)
     {
-        $this->data = $data;
+        $this->token = $token;
     }
 
     /**
@@ -41,21 +45,17 @@ class EmailNotification extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
+
     public function toMail($notifiable)
     {
-        //Set App Name
-        config(['app.name' => Setting::Logo()]);
-
-        //Set Mail From Name
-        config(['app.mail_from_name' => Setting::Logo()]);
-
-        //Set From Name
-        config(['database.connections.mysql.from_name' => Setting::Logo()]);
-        config(['database.connections.mysql.from_address' => 'support@' . strtolower(Setting::Logo()) . '.com']);
-        config(['app.MAIL_FROM_NAME' => Setting::Logo()]);
-        
+        $url = URL::temporarySignedRoute('reset-password', now()->addHours(12) ,['id' => $this->token]);
         return (new MailMessage)
-            ->line($this->data['first_name'] . ' ' . $this->data['last_name'] . ' has requested an Appointment with you.');
+                    ->line('Hi!')
+                    ->subject('Reset Password')
+                    ->line('You are receveing this email so you can reset the password for your account')
+                    ->action('Reset Password', $url )
+                    ->line("If you didn't request this, please ignore this email.")
+                    ->line('Thank you!');
     }
 
     /**

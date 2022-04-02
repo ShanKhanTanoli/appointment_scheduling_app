@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Setting;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,20 +12,18 @@ class TrainerNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $from;
-    public $to;
     public $name;
+    public $subject;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($from,$to,$name)
+    public function __construct($name, $subject)
     {
-        // $this->from = $from;
-        // $this->to = $to;
         $this->name = $name;
+        $this->subject = $subject;
     }
 
     /**
@@ -35,8 +34,9 @@ class TrainerNotification extends Mailable
     public function build()
     {
         return $this->from('support@email.com')
-        ->subject('A sample email')
-        ->to('shankhantanoli@gmail.com')
-        ->view('emails.appointment-email');
+            ->subject($this->subject)
+            ->from('no-reply@' . strtoupper(Setting::Logo()) . '.com', Setting::Logo())
+            ->to('shankhantanoli1@gmail.com')
+            ->view('emails.appointment-email');
     }
 }

@@ -12,45 +12,40 @@ class ForgotPassword extends Component
 {
     use Notifiable;
 
-    public $email = '';
-
-    public $showSuccesNotification = false; 
-    public $showFailureNotification = false;
-
-    public $showDemoNotification = false;
+    public $email;
 
     protected $rules = [
         'email' => 'required|email',
-    ];  
+    ];
 
-    public function mount() {
-        if(auth()->user()){
-            redirect('/dashboard');
+    public function mount()
+    {
+        if (auth()->user()) {
+            redirect(route('AdminDashboard'));
         }
     }
 
-    public function routeNotificationForMail() {
+    public function routeNotificationForMail()
+    {
         return $this->email;
     }
 
-    public function recoverPassword() { 
-        if(env('IS_DEMO')) {
-            $this->showDemoNotification = true;
+    public function recoverPassword()
+    {
+        $this->validate();
+        $user = User::where('email', $this->email)->first();
+        if ($user) {
+            $this->notify(new ResetPassword($user->id));
+            return session()->flash('success', 'A password reset link has been sent to ' . $this->email);
         } else {
-            $this->validate();
-            $user = User::where('email', $this->email)->first();
-            if($user){
-                $this->notify(new ResetPassword($user->id));
-                $this->showSuccesNotification = true;
-                $this->showFailureNotification = false;
-            } else {
-                $this->showFailureNotification = true;
-            }
+            return session()->flash('error', 'Email not found');
         }
     }
 
     public function render()
     {
-        return view('livewire.auth.forgot-password')->layout('layouts.base');
+        return view('livewire.auth.passwords.email')
+            ->extends('layouts.auth')
+            ->section('content');
     }
 }

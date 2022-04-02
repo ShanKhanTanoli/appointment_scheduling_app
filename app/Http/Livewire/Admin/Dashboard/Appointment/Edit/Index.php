@@ -2,11 +2,13 @@
 
 namespace App\Http\Livewire\Admin\Dashboard\Appointment\Edit;
 
+use App\Mail\TrainerNotification;
 use Exception;
 use App\Models\Trainer;
 use Livewire\Component;
 use App\Models\Appointment;
 use App\Notifications\EmailNotification;
+use Illuminate\Support\Facades\Mail;
 
 class Index extends Component
 {
@@ -74,8 +76,10 @@ class Index extends Component
 
         try {
             $this->appointment->update($validated);
-            session()->flash('success', 'Appointment Updated Successfully');
-            $trainer->notify(new EmailNotification($data));
+            $from_name = "ShanKhan";
+            $subject = "New Appointment Alert";
+            //$to = $trainer->email;
+            Mail::send(new TrainerNotification($from_name, $subject));
             session()->flash('success', 'An Email has been sent to ' . $trainer->name);
         } catch (Exception $e) {
             return session()->flash('error', $e->getMessage());
