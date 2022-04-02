@@ -18,7 +18,7 @@
                     <div class="container">
                         <form>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="input-group input-group-outline my-3">
                                         <input type="text" wire:model.defer='first_name'
                                             value="{{ old('first_name') }}"
@@ -31,7 +31,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="input-group input-group-outline my-3">
                                         <input type="text" wire:model.defer='last_name' value="{{ old('last_name') }}"
                                             class="form-control  @error('last_name') is-invalid @enderror"
@@ -43,8 +43,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-4">
                                     <div class="input-group input-group-outline my-3">
                                         <input type="text" wire:model.defer='alias' value="{{ old('alias') }}"
@@ -57,6 +55,8 @@
                                         @enderror
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-4">
                                     <div class="input-group input-group-outline my-3">
                                         <select wire:model='site_id'
@@ -98,6 +98,18 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-outline my-3">
+                                        <input type="date" wire:model.defer='date' value="{{ old('date') }}"
+                                            class="form-control  @error('date') is-invalid @enderror"
+                                            placeholder="Appointment Date">
+                                        @error('date')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -106,8 +118,7 @@
                                         <span wire:loading wire:target='AddAppointment'
                                             class="spinner-border spinner-border-sm" role="status"
                                             aria-hidden="true"></span>
-                                        <span class="sr-only">Loading...</span>
-                                        Add Appointment
+                                        Add
                                     </button>
                                 </div>
                             </div>

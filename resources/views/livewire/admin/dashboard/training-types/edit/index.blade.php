@@ -10,7 +10,7 @@
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                         <h6 class="text-white text-capitalize ps-3">
-                            Update Site
+                            Update Training Type
                         </h6>
                     </div>
                 </div>
@@ -20,9 +20,10 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="input-group input-group-outline my-3">
-                                        <input type="text" wire:model.defer='code' value="{{ old('code') }}"
-                                            class="form-control  @error('code') is-invalid @enderror" placeholder="Enter Site">
-                                        @error('code')
+                                        <input type="text" wire:model.defer='name' value="{{ old('name') }}"
+                                            class="form-control  @error('name') is-invalid @enderror"
+                                            placeholder="Enter Training Type">
+                                        @error('name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -33,10 +34,10 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <button type="button" class="btn btn-primary" wire:attr='disabled'
-                                        wire:click='UpdateSite'>
+                                        wire:click='Update'>
                                         <span wire:loading class="spinner-border spinner-border-sm" role="status"
                                             aria-hidden="true"></span>
-                                        Update Site
+                                        Update
                                     </button>
                                 </div>
                             </div>

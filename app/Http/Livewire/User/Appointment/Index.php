@@ -19,6 +19,7 @@ class Index extends Component
     public $last_name;
     public $alias;
     public $trainer_id;
+    public $date;
 
     public function mount($slug)
     {
@@ -48,6 +49,7 @@ class Index extends Component
             'last_name' => 'required|string|min:3',
             'alias' => 'required|string|min:3',
             'trainer_id' => 'required|numeric',
+            'date' => 'required|date|after_or_equal:'.date('Y-m-d'),
         ]);
 
         $trainer = Trainer::find($validated['trainer_id']);

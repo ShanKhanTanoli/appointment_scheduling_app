@@ -17,6 +17,7 @@ class Index extends Component
     public $alias;
     public $site_id;
     public $trainer_id;
+    public $date;
 
     public function render()
     {
@@ -33,6 +34,7 @@ class Index extends Component
             'alias' => 'required|string|min:3',
             'site_id' => 'required|numeric',
             'trainer_id' => 'required|numeric',
+            'date' => 'required|date|after_or_equal:'.date('Y-m-d'),
         ]);
 
         $trainer = Trainer::find($validated['trainer_id']);

@@ -15,6 +15,7 @@ class Index extends Component
     public $alias;
     public $site_id;
     public $trainer_id;
+    public $date;
 
     public $appointment;
 
@@ -29,6 +30,7 @@ class Index extends Component
             $this->alias = $this->appointment->alias;
             $this->site_id = $this->appointment->site_id;
             $this->trainer_id = $this->appointment->trainer_id;
+            $this->date = $this->appointment->date;
         } else {
             session()->flash('error', 'Something went wrong');
             return redirect(route('AdminAppointments'));
@@ -50,24 +52,24 @@ class Index extends Component
             'alias' => 'required|string|min:3',
             'site_id' => 'required|numeric',
             'trainer_id' => 'required|numeric',
+            'date' => 'required|date|after_or_equal:'.$this->date,
         ]);
 
         $trainer = Trainer::find($validated['trainer_id']);
-        
+
         $data = [
             'first_name' => $validated['first_name'],
             'last_name' => $validated['last_name'],
             'alias' => $validated['alias'],
         ];
-        
+
         try {
             $this->appointment->update($validated);
             session()->flash('success', 'Appointment Updated Successfully');
-            
+
             //$trainer->notify(new EmailNotification($data));
 
-            session()->flash('success','An Email has been sent to '.$trainer->name);
-
+            session()->flash('success', 'An Email has been sent to ' . $trainer->name);
         } catch (Exception $e) {
             return session()->flash('error', $e->getMessage());
         }

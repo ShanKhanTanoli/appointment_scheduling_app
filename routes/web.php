@@ -26,10 +26,16 @@ use App\Http\Livewire\Admin\Dashboard\Password\Index as EditPassword;
 use App\Http\Livewire\Admin\Dashboard\Trainers\Add\Index as AddTrainer;
 use App\Http\Livewire\Admin\Dashboard\Trainers\Index as ViewAllTrainers;
 use App\Http\Livewire\Admin\Dashboard\Trainers\Edit\Index as EditTrainer;
+
 use App\Http\Livewire\Admin\Dashboard\Site\Trainers\Index as SiteTrainers;
 use App\Http\Livewire\Admin\Dashboard\Appointment\Add\Index as AddAppointment;
 use App\Http\Livewire\Admin\Dashboard\Appointment\Index as ViewAllAppointments;
 use App\Http\Livewire\Admin\Dashboard\Appointment\Edit\Index as EditAppointment;
+
+use App\Http\Livewire\Admin\Dashboard\TrainingTypes\Index as ViewAllTrainingTypes;
+use App\Http\Livewire\Admin\Dashboard\TrainingTypes\Add\Index as AddTrainingTypes;
+use App\Http\Livewire\Admin\Dashboard\TrainingTypes\Edit\Index as EditTrainingTypes;
+
 use App\Mail\TrainerNotification;
 
 /*
@@ -92,6 +98,12 @@ Route::middleware('auth')->prefix('Admin')->group(function () {
     Route::get('Trainers', ViewAllTrainers::class)->name('AdminTrainers');
     Route::get('AddTrainer', AddTrainer::class)->name('AdminAddTrainer');
     Route::get('EditTrainer/{slug}', EditTrainer::class)->name('AdminEditTrainer');
+    /*End::Trainer Operations*/
+
+    /*Begin::TrainingTypes Operations*/
+    Route::get('TrainingTypes', ViewAllTrainingTypes::class)->name('AdminTrainingTypes');
+    Route::get('AddTrainingTypes', AddTrainingTypes::class)->name('AdminAddTrainingTypes');
+    Route::get('EditTrainingTypes/{slug}', EditTrainingTypes::class)->name('AdminEditTrainingTypes');
     /*End::Trainer Operations*/
 
     /*Begin::Site Operations*/

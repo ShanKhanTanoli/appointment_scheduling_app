@@ -25,23 +25,26 @@ return new class extends Migration
 
             $table->unsignedBigInteger('site_id')->nullable();
             $table->foreign('site_id')->references('id')
-            ->on('sites')->onUpdate('cascade')->onDelete('cascade');
+                ->on('sites')->onUpdate('cascade')->onDelete('cascade');
 
             $table->unsignedBigInteger('trainer_id')->nullable();
             $table->foreign('trainer_id')->references('id')
-            ->on('trainers')->onUpdate('cascade')->onDelete('cascade');
+                ->on('trainers')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->date('date')->nullable();
 
             $table->timestamps();
         });
 
-        for($user = 1 ; $user < 11; $user++){
+        for ($user = 1; $user < 11; $user++) {
             Appointment::create([
-                'first_name' => 'User'.$user,
-                'last_name' => 'User'.$user,
+                'first_name' => 'User' . $user,
+                'last_name' => 'User' . $user,
                 'alias' => strtoupper(Str::random(20)),
                 'slug' => strtoupper(Str::random(20)),
-                'site_id' => mt_rand(1,4),
-                'trainer_id' => mt_rand(1,11),
+                'site_id' => mt_rand(1, 4),
+                'trainer_id' => mt_rand(1, 11),
+                'date' => date('2022-4-' . mt_rand(1, 11)),
             ]);
         }
     }

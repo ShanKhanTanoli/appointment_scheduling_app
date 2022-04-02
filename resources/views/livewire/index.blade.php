@@ -109,14 +109,20 @@
                                                         @endif
                                                     </td>
                                                     <td class="align-middle">
-                                                        <button class="btn btn-sm btn-success"
-                                                            wire:click='MakeAppointment("{{ $site->id }}")'>
-                                                            <span wire:loading
-                                                                wire:target='MakeAppointment("{{ $site->id }}")'
-                                                                class="spinner-border spinner-border-sm" role="status"
-                                                                aria-hidden="true"></span>
-                                                            Appointment
-                                                        </button>
+                                                        @if ($site->trainers->count() > 0)
+                                                            <button class="btn btn-sm btn-success"
+                                                                wire:click='MakeAppointment("{{ $site->id }}")'>
+                                                                <span wire:loading
+                                                                    wire:target='MakeAppointment("{{ $site->id }}")'
+                                                                    class="spinner-border spinner-border-sm"
+                                                                    role="status" aria-hidden="true"></span>
+                                                                Appointment
+                                                            </button>
+                                                        @else
+                                                            <span class="badge bg-gradient-danger">
+                                                                No Trainers
+                                                            </span>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach

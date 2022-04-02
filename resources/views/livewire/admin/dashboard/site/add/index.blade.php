@@ -21,7 +21,8 @@
                                 <div class="col-md-6">
                                     <div class="input-group input-group-outline my-3">
                                         <input type="text" wire:model.defer='site_name' value="{{ old('site_name') }}"
-                                            class="form-control  @error('site_name') is-invalid @enderror" placeholder="Enter Site">
+                                            class="form-control  @error('site_name') is-invalid @enderror"
+                                            placeholder="Enter Site">
                                         @error('site_name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -36,7 +37,6 @@
                                         wire:click='AddSite'>
                                         <span wire:loading class="spinner-border spinner-border-sm" role="status"
                                             aria-hidden="true"></span>
-                                        <span class="sr-only">Loading...</span>
                                         Add Site
                                     </button>
                                 </div>

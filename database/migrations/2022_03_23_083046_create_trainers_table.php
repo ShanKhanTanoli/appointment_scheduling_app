@@ -27,6 +27,11 @@ return new class extends Migration
             $table->foreign('site_id')->references('id')
             ->on('sites')->onUpdate('cascade')->onDelete('cascade');
 
+            $table->unsignedBigInteger('training_type_id')->nullable();
+
+            $table->foreign('training_type_id')->references('id')
+            ->on('training_types')->onUpdate('cascade')->onDelete('cascade');
+
             $table->timestamps();
         });
 
@@ -36,6 +41,7 @@ return new class extends Migration
             'number' => mt_rand(0000000000,9999999999),
             'slug' => strtoupper(Str::random(20)),
             'site_id' => mt_rand(1,4),
+            'training_type_id' => mt_rand(1,2),
         ]);
 
         Trainer::create([
@@ -44,6 +50,7 @@ return new class extends Migration
             'number' => mt_rand(0000000000,9999999999),
             'slug' => strtoupper(Str::random(20)),
             'site_id' => mt_rand(1,4),
+            'training_type_id' => mt_rand(1,2),
         ]);
 
         Trainer::create([
@@ -52,6 +59,7 @@ return new class extends Migration
             'number' => mt_rand(0000000000,9999999999),
             'slug' => strtoupper(Str::random(20)),
             'site_id' => mt_rand(1,4),
+            'training_type_id' => mt_rand(1,2),
         ]);
 
         Trainer::create([
@@ -60,6 +68,7 @@ return new class extends Migration
             'number' => mt_rand(0000000000,9999999999),
             'slug' => strtoupper(Str::random(20)),
             'site_id' => mt_rand(1,4),
+            'training_type_id' => mt_rand(1,2),
         ]);
 
         Trainer::create([
@@ -68,6 +77,7 @@ return new class extends Migration
             'number' => mt_rand(0000000000,9999999999),
             'slug' => strtoupper(Str::random(20)),
             'site_id' => mt_rand(1,4),
+            'training_type_id' => mt_rand(1,2),
         ]);
 
         Trainer::create([
@@ -76,6 +86,7 @@ return new class extends Migration
             'number' => mt_rand(0000000000,9999999999),
             'slug' => strtoupper(Str::random(20)),
             'site_id' => mt_rand(1,4),
+            'training_type_id' => mt_rand(1,2),
         ]);
 
         Trainer::create([
@@ -84,6 +95,7 @@ return new class extends Migration
             'number' => mt_rand(0000000000,9999999999),
             'slug' => strtoupper(Str::random(20)),
             'site_id' => mt_rand(1,4),
+            'training_type_id' => mt_rand(1,2),
         ]);
 
         Trainer::create([
@@ -92,6 +104,7 @@ return new class extends Migration
             'number' => mt_rand(0000000000,9999999999),
             'slug' => strtoupper(Str::random(20)),
             'site_id' => mt_rand(1,4),
+            'training_type_id' => mt_rand(1,2),
         ]);
 
         Trainer::create([
@@ -100,6 +113,7 @@ return new class extends Migration
             'number' => mt_rand(0000000000,9999999999),
             'slug' => strtoupper(Str::random(20)),
             'site_id' => mt_rand(1,4),
+            'training_type_id' => mt_rand(1,2),
         ]);
 
         Trainer::create([
@@ -108,6 +122,7 @@ return new class extends Migration
             'number' => mt_rand(0000000000,9999999999),
             'slug' => strtoupper(Str::random(20)),
             'site_id' => mt_rand(1,4),
+            'training_type_id' => mt_rand(1,2),
         ]);
 
 
@@ -117,6 +132,7 @@ return new class extends Migration
             'number' => mt_rand(0000000000,9999999999),
             'slug' => strtoupper(Str::random(20)),
             'site_id' => mt_rand(1,4),
+            'training_type_id' => mt_rand(1,2),
         ]);
 
     }

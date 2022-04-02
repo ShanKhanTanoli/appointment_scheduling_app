@@ -38,7 +38,7 @@
                                         Trainer
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Created At
+                                        Date
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Edit
@@ -129,7 +129,7 @@
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">
-                                                        {{ date('d M Y', strtotime($apointment->created_at)) }}
+                                                        {{ date('d M Y', strtotime($apointment->date)) }}
                                                     </h6>
                                                 </div>
                                             </div>
