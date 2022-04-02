@@ -113,6 +113,36 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
+                                    <div class="input-group input-group-outline my-3">
+                                        <input type="time" wire:model.defer='time' value="{{ old('time') }}"
+                                            class="form-control  @error('time') is-invalid @enderror"
+                                            placeholder="Appointment Time">
+                                        @error('time')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input-group input-group-outline my-3">
+                                        <select wire:model.defer='training_type_id'
+                                            class="form-control  @error('training_type_id') is-invalid @enderror">
+                                            <option value="">Select Training Type</option>
+                                            @foreach (TrainingType::all() as $type)
+                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('training_type_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
                                     <button type="button" class="btn btn-primary" wire:attr='disabled'
                                         wire:click='AddAppointment'>
                                         <span wire:loading wire:target='AddAppointment'

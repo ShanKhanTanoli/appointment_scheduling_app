@@ -10,6 +10,14 @@ class TrainingType extends Model
     use HasFactory;
 
     protected $fillable  = [
-        'name','slug'
+        'name', 'slug'
     ];
+
+    public static function Info($type)
+    {
+        if ($type = TrainingType::find($type)) {
+            return $type;
+        }
+        return false;
+    }
 }

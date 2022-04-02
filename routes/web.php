@@ -33,8 +33,8 @@ use App\Http\Livewire\Admin\Dashboard\Appointment\Index as ViewAllAppointments;
 use App\Http\Livewire\Admin\Dashboard\Appointment\Edit\Index as EditAppointment;
 
 use App\Http\Livewire\Admin\Dashboard\TrainingTypes\Index as ViewAllTrainingTypes;
-use App\Http\Livewire\Admin\Dashboard\TrainingTypes\Add\Index as AddTrainingTypes;
-use App\Http\Livewire\Admin\Dashboard\TrainingTypes\Edit\Index as EditTrainingTypes;
+use App\Http\Livewire\Admin\Dashboard\TrainingTypes\Add\Index as AddTrainingType;
+use App\Http\Livewire\Admin\Dashboard\TrainingTypes\Edit\Index as EditTrainingType;
 
 use App\Mail\TrainerNotification;
 
@@ -57,7 +57,7 @@ Route::get('debug', function () {
     // config(['database.connections.mysql.from_address' => 'Shankhan']);
 
     // dd(config('database.connections.mysql.from_address'));
-    
+
     // config(['app.name' => Setting::Logo()]);
 
     // dd(config('app.name'));
@@ -71,7 +71,6 @@ Route::get('debug', function () {
     // Mail::send(new TrainerNotification($from,$to,$name));
 
     return "done";
-
 });
 
 
@@ -80,14 +79,14 @@ Route::get('/home', function () {
 })->name('home');
 
 
-Route::get('/',Index::class)
-->name('main');
+Route::get('/', Index::class)
+    ->name('main');
 
-Route::get('ViewTrainers/{slug}',Viewtrainers::class)
-->name('viewtrainers');
+Route::get('ViewTrainers/{slug}', Viewtrainers::class)
+    ->name('viewtrainers');
 
-Route::get('MakeAppointment/{slug}',MakeAppointment::class)
-->name('MakeAppointment');
+Route::get('MakeAppointment/{slug}', MakeAppointment::class)
+    ->name('MakeAppointment');
 
 /*Begin::Auth Group*/
 Route::middleware('auth')->prefix('Admin')->group(function () {
@@ -102,8 +101,8 @@ Route::middleware('auth')->prefix('Admin')->group(function () {
 
     /*Begin::TrainingTypes Operations*/
     Route::get('TrainingTypes', ViewAllTrainingTypes::class)->name('AdminTrainingTypes');
-    Route::get('AddTrainingTypes', AddTrainingTypes::class)->name('AdminAddTrainingTypes');
-    Route::get('EditTrainingTypes/{slug}', EditTrainingTypes::class)->name('AdminEditTrainingTypes');
+    Route::get('AddTrainingType', AddTrainingType::class)->name('AdminAddTrainingType');
+    Route::get('EditTrainingType/{slug}', EditTrainingType::class)->name('AdminEditTrainingType');
     /*End::Trainer Operations*/
 
     /*Begin::Site Operations*/
@@ -127,6 +126,5 @@ Route::middleware('auth')->prefix('Admin')->group(function () {
     /*Begin::Appointment Operations*/
     Route::get('Settings', Settings::class)->name('AdminSettings');
     /*End::Appointment Operations*/
-
 });
 /*End::Auth Group*/

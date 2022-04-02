@@ -16,6 +16,8 @@ class Index extends Component
     public $site_id;
     public $trainer_id;
     public $date;
+    public $time;
+    public $training_type_id;
 
     public $appointment;
 
@@ -31,6 +33,8 @@ class Index extends Component
             $this->site_id = $this->appointment->site_id;
             $this->trainer_id = $this->appointment->trainer_id;
             $this->date = $this->appointment->date;
+            $this->time = $this->appointment->time;
+            $this->training_type_id = $this->appointment->training_type_id;
         } else {
             session()->flash('error', 'Something went wrong');
             return redirect(route('AdminAppointments'));
@@ -46,14 +50,19 @@ class Index extends Component
 
     public function UpdateAppointment()
     {
+        $msg = [
+            'time.date_format:H:i' =>  'Please select a valid time',
+        ];
         $validated = $this->validate([
             'first_name' => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
             'alias' => 'required|string|min:3',
             'site_id' => 'required|numeric',
             'trainer_id' => 'required|numeric',
-            'date' => 'required|date|after_or_equal:'.$this->date,
-        ]);
+            'date' => 'required|date|after_or_equal:' . $this->date,
+            'time' => 'required|date_format:H:i|after_or_equal:' . $this->time,
+            'training_type_id' => 'required|numeric',
+        ], $msg);
 
         $trainer = Trainer::find($validated['trainer_id']);
 
@@ -66,9 +75,7 @@ class Index extends Component
         try {
             $this->appointment->update($validated);
             session()->flash('success', 'Appointment Updated Successfully');
-
-            //$trainer->notify(new EmailNotification($data));
-
+            $trainer->notify(new EmailNotification($data));
             session()->flash('success', 'An Email has been sent to ' . $trainer->name);
         } catch (Exception $e) {
             return session()->flash('error', $e->getMessage());

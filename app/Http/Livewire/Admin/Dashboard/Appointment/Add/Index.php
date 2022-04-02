@@ -18,6 +18,8 @@ class Index extends Component
     public $site_id;
     public $trainer_id;
     public $date;
+    public $time;
+    public $training_type_id;
 
     public function render()
     {
@@ -34,31 +36,24 @@ class Index extends Component
             'alias' => 'required|string|min:3',
             'site_id' => 'required|numeric',
             'trainer_id' => 'required|numeric',
-            'date' => 'required|date|after_or_equal:'.date('Y-m-d'),
+            'date' => 'required|date|after_or_equal:' . date('Y-m-d'),
+            'time' => 'required|date_format:H:i|after_or_equal:' . date('H:i'),
+            'training_type_id' => 'required|numeric',
         ]);
-
         $trainer = Trainer::find($validated['trainer_id']);
-        
         $data = [
             'first_name' => $validated['first_name'],
             'last_name' => $validated['last_name'],
             'alias' => $validated['alias'],
         ];
-
-
-        try{
-            Appointment::create(array_merge($validated,['slug' => strtoupper(Str::random(20))]));
-            
-            session()->flash('success','Appointment Added Successfully');
-
-            //$trainer->notify(new EmailNotification($data));
-
-            session()->flash('success','An Email has been sent to '.$trainer->name);
-
+        try {
+            Appointment::create(array_merge($validated, ['slug' => strtoupper(Str::random(20))]));
+            session()->flash('success', 'Appointment Added Successfully');
+            $trainer->notify(new EmailNotification($data));
+            session()->flash('success', 'An Email has been sent to ' . $trainer->name);
             return redirect(route('AdminAppointments'));
-
-        }catch(Exception $e){
-            return session()->flash('error',$e->getMessage());
+        } catch (Exception $e) {
+            return session()->flash('error', $e->getMessage());
         }
     }
 }

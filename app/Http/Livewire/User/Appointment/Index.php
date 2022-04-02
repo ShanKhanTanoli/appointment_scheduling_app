@@ -20,6 +20,8 @@ class Index extends Component
     public $alias;
     public $trainer_id;
     public $date;
+    public $time;
+    public $training_type_id;
 
     public function mount($slug)
     {
@@ -49,7 +51,9 @@ class Index extends Component
             'last_name' => 'required|string|min:3',
             'alias' => 'required|string|min:3',
             'trainer_id' => 'required|numeric',
-            'date' => 'required|date|after_or_equal:'.date('Y-m-d'),
+            'date' => 'required|date|after_or_equal:' . date('Y-m-d'),
+            'time' => 'required|date_format:H:i|after_or_equal:' . date('H:i'),
+            'training_type_id' => 'required|numeric',
         ]);
 
         $trainer = Trainer::find($validated['trainer_id']);
@@ -67,13 +71,9 @@ class Index extends Component
 
         try {
             Appointment::create(array_merge($validated, $appoint_data));
-
             session()->flash('success', 'Appointment Added Successfully');
-
-            //$trainer->notify(new EmailNotification($data));
-
+            $trainer->notify(new EmailNotification($data));
             session()->flash('success', 'An Email has been sent to ' . $trainer->name);
-
             return redirect(route('main'));
         } catch (Exception $e) {
             return session()->flash('error', $e->getMessage());

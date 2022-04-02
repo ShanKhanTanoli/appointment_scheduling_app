@@ -12,7 +12,7 @@ class Trainer extends Model
     use HasFactory,Notifiable;
 
     protected $fillable  = [
-        'name','email','number','slug','site_id','training_type_id'
+        'name','email','number','slug','site_id',
     ];
 
     public function site()

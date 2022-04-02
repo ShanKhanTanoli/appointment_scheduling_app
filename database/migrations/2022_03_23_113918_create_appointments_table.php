@@ -31,7 +31,13 @@ return new class extends Migration
             $table->foreign('trainer_id')->references('id')
                 ->on('trainers')->onUpdate('cascade')->onDelete('cascade');
 
+            $table->unsignedBigInteger('training_type_id')->nullable();
+            $table->foreign('training_type_id')->references('id')
+                ->on('training_types')->onUpdate('cascade')->onDelete('cascade');
+
             $table->date('date')->nullable();
+
+            $table->time('time')->nullable();
 
             $table->timestamps();
         });
@@ -45,6 +51,8 @@ return new class extends Migration
                 'site_id' => mt_rand(1, 4),
                 'trainer_id' => mt_rand(1, 11),
                 'date' => date('2022-4-' . mt_rand(1, 11)),
+                'time' => date('H:i'),
+                'training_type_id' => mt_rand(1, 2),
             ]);
         }
     }

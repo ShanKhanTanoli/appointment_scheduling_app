@@ -29,13 +29,16 @@
                                         Last Name
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        Alias
-                                    </th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Site
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Trainer
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Training Type
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Date
                                     </th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Date
@@ -82,19 +85,6 @@
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">
-                                                        @if (strlen($apointment->alias) > 20)
-                                                            {{ substr(0, 20, $apointment->alias) }}...
-                                                        @else
-                                                            {{ $apointment->alias }}
-                                                        @endif
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">
                                                         @if ($site = Site::Info($apointment->site_id))
                                                             <span class="badge bg-gradient-dark">
                                                                 {{ $site->code }}
@@ -129,7 +119,33 @@
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">
+                                                        @if ($type = TrainingType::Info($apointment->training_type_id))
+                                                            <strong>
+                                                                {{ $type->name }}
+                                                            </strong>
+                                                        @else
+                                                            <span class="badge bg-gradient-danger">
+                                                                No Type
+                                                            </span>
+                                                        @endif
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">
                                                         {{ date('d M Y', strtotime($apointment->date)) }}
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">
+                                                        {{ date('h:i A', strtotime($apointment->time)) }}
                                                     </h6>
                                                 </div>
                                             </div>

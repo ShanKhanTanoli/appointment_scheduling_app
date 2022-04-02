@@ -10,6 +10,14 @@ class Appointment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'first_name','last_name','alias','slug','site_id','trainer_id','date',
+        'first_name',
+        'last_name',
+        'alias',
+        'slug',
+        'site_id',
+        'trainer_id',
+        'date',
+        'training_type_id',
+        'time',
     ];
 }
