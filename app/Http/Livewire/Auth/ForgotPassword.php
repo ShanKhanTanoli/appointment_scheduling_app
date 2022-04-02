@@ -7,6 +7,7 @@ use App\Models\User;
 
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\ResetPassword;
+use Exception;
 
 class ForgotPassword extends Component
 {
@@ -35,8 +36,12 @@ class ForgotPassword extends Component
         $this->validate();
         $user = User::where('email', $this->email)->first();
         if ($user) {
-            $this->notify(new ResetPassword($user->id));
-            return session()->flash('success', 'A password reset link has been sent to ' . $this->email);
+            try {
+                $this->notify(new ResetPassword($user->id));
+                return session()->flash('success', 'A password reset link has been sent to ' . $this->email);
+            } catch (Exception $e) {
+                return session()->flash('error', 'Something went wrong.Please refresh the page and try again.');
+            }
         } else {
             return session()->flash('error', 'Email not found');
         }
