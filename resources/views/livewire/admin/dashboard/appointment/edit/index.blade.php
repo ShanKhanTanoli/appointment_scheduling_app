@@ -116,7 +116,7 @@
                                     <div class="input-group input-group-outline my-3">
                                         <input type="time" wire:model.defer='time' value="{{ old('time') }}"
                                             class="form-control  @error('time') is-invalid @enderror"
-                                            placeholder="Appointment Time">
+                                            placeholder="Appointment Time" step="2">
                                         @error('time')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

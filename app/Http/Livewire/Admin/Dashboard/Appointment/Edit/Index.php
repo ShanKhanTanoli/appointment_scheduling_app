@@ -20,7 +20,6 @@ class Index extends Component
     public $date;
     public $time;
     public $training_type_id;
-
     public $appointment;
 
     public function mount($slug)
@@ -53,7 +52,7 @@ class Index extends Component
     public function UpdateAppointment()
     {
         $msg = [
-            'time.date_format:H:i' =>  'Please select a valid time',
+            'time.date_format' =>  'Please select a valid time',
         ];
         $validated = $this->validate([
             'first_name' => 'required|string|min:3',
@@ -62,7 +61,7 @@ class Index extends Component
             'site_id' => 'required|numeric',
             'trainer_id' => 'required|numeric',
             'date' => 'required|date|after_or_equal:' . $this->date,
-            'time' => 'required|date_format:H:i|after_or_equal:' . $this->time,
+            'time' => 'required|date_format:H:i:s|after_or_equal:' . $this->time,
             'training_type_id' => 'required|numeric',
         ], $msg);
 
@@ -72,14 +71,14 @@ class Index extends Component
             'first_name' => $validated['first_name'],
             'last_name' => $validated['last_name'],
             'alias' => $validated['alias'],
+            'date' => $validated['date'],
+            'time' => $validated['time'],
+            'training_type_id' => $validated['training_type_id'],
         ];
 
         try {
             $this->appointment->update($validated);
-            $from_name = "ShanKhan";
-            $subject = "New Appointment Alert";
-            //$to = $trainer->email;
-            Mail::send(new TrainerNotification($from_name, $subject));
+            $trainer->notify(new EmailNotification($data));
             session()->flash('success', 'An Email has been sent to ' . $trainer->name);
         } catch (Exception $e) {
             return session()->flash('error', $e->getMessage());

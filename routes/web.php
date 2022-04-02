@@ -43,6 +43,10 @@ Route::get('/home', function () {
     return redirect(route('AdminDashboard'));
 })->name('home');
 
+Route::get('/register', function () {
+    return redirect(route('AdminDashboard'));
+})->name('register');
+
 
 Route::get('/', Index::class)
     ->name('main');

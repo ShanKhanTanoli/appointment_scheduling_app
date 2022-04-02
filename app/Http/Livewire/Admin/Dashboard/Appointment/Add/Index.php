@@ -37,7 +37,7 @@ class Index extends Component
             'site_id' => 'required|numeric',
             'trainer_id' => 'required|numeric',
             'date' => 'required|date|after_or_equal:' . date('Y-m-d'),
-            'time' => 'required|date_format:H:i|after_or_equal:' . date('H:i'),
+            'time' => 'required|date_format:H:i:s|after_or_equal:' . date('H:i:s'),
             'training_type_id' => 'required|numeric',
         ]);
         $trainer = Trainer::find($validated['trainer_id']);
@@ -45,6 +45,9 @@ class Index extends Component
             'first_name' => $validated['first_name'],
             'last_name' => $validated['last_name'],
             'alias' => $validated['alias'],
+            'date' => $validated['date'],
+            'time' => $validated['time'],
+            'training_type_id' => $validated['training_type_id'],
         ];
         try {
             Appointment::create(array_merge($validated, ['slug' => strtoupper(Str::random(20))]));
