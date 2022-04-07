@@ -42,9 +42,7 @@ class ForgotPassword extends Component
             } catch (Exception $e) {
                 return session()->flash('error', 'Something went wrong.Please refresh the page and try again.');
             }
-        } else {
-            return session()->flash('error', 'Email not found');
-        }
+        } else return session()->flash('error', 'Email not found');
     }
 
     public function render()

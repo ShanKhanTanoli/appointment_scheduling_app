@@ -12,7 +12,6 @@
                         <div class="card card-plain">
                             <div class="card-header text-center">
                                 <h4 class="font-weight-bolder">Register</h4>
-                                <p class="mb-0">Enter your name , email and password to register</p>
                             </div>
                             <div class="card-body">
                                 <form role="form">

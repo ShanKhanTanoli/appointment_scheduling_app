@@ -12,7 +12,6 @@
                         <div class="card card-plain">
                             <div class="card-header text-center">
                                 <h4 class="font-weight-bolder">Login</h4>
-                                <p class="mb-0">Enter your email and password to login</p>
                             </div>
                             <div class="card-body">
                                 <form role="form">
@@ -38,7 +37,7 @@
                                     </div>
                                     <div class="text-center">
                                         <button wire:click='login()' type="button"
-                                            class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">
+                                            class="btn btn-lg bg-gradient-dark btn-lg w-100 mt-4 mb-0">
                                             <span wire:loading class="spinner-border spinner-border-sm" role="status"
                                                 aria-hidden="true"></span>
                                             Login
@@ -48,17 +47,8 @@
                             </div>
                             <div class="card-footer text-center pt-0 px-lg-2 px-1">
                                 <p class="mb-2 text-sm mx-auto">
-                                    Don't have an Account ?
-                                    <a href="{{ route('register') }}"
-                                        class="text-primary text-gradient font-weight-bold">
-                                        Register here
-                                    </a>
-                                </p>
-                                <p class="mb-2 text-sm mx-auto">
-                                    Forgot your password ?
-                                    <a href="{{ route('forgot-password') }}"
-                                        class="text-primary text-gradient font-weight-bold">
-                                        Reset here
+                                    <a href="{{ route('forgot-password') }}" class="text-dark font-weight-bold">
+                                        Forgot your password ? Reset here
                                     </a>
                                 </p>
                             </div>

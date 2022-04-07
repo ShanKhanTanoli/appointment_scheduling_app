@@ -22,8 +22,10 @@ class ResetPassword extends Component
 
     public function mount($id)
     {
-        $existingUser = User::find($id);
-        $this->urlID = intval($existingUser->id);
+        if ($existingUser = User::find($id)) {
+            $this->email = $existingUser->email;
+            $this->urlID = intval($existingUser->id);
+        } else return session()->flash('error', 'Something went wrong');
     }
 
     public function resetPassword()
@@ -34,11 +36,9 @@ class ResetPassword extends Component
             $existingUser->update([
                 'password' => Hash::make($this->password)
             ]);
-            session()->flash('success', 'Password Reset Successfully');
+            session()->flash('success', 'Password reset successfully');
             redirect(route('login'));
-        } else {
-            return session()->flash('error', 'Something went wrong');
-        }
+        } else return session()->flash('error', 'Something went wrong');
     }
 
     public function render()

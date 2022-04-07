@@ -12,7 +12,6 @@
                         <div class="card card-plain">
                             <div class="card-header text-center">
                                 <h4 class="font-weight-bolder">Reset Password</h4>
-                                <p class="mb-0">Enter your email and new password</p>
                             </div>
                             <div class="card-body">
                                 <form role="form">
@@ -29,7 +28,8 @@
                                     <div class="input-group input-group-outline mb-3">
                                         <input id="password" type="password" wire:model.defer="password"
                                             class="form-control @error('password') is-invalid @enderror" name="password"
-                                            value="{{ old('password') }}" autocomplete="password" placeholder="Enter Password">
+                                            value="{{ old('password') }}" autocomplete="password"
+                                            placeholder="Enter New Password">
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -37,9 +37,11 @@
                                         @enderror
                                     </div>
                                     <div class="input-group input-group-outline mb-3">
-                                        <input id="passwordConfirmation" type="password" wire:model.defer="passwordConfirmation"
-                                            class="form-control @error('passwordConfirmation') is-invalid @enderror" name="passwordConfirmation"
-                                            value="{{ old('passwordConfirmation') }}" autocomplete="passwordConfirmation" placeholder="Confirm Password">
+                                        <input id="passwordConfirmation" type="password"
+                                            wire:model.defer="passwordConfirmation"
+                                            class="form-control @error('passwordConfirmation') is-invalid @enderror"
+                                            name="passwordConfirmation" value="{{ old('passwordConfirmation') }}"
+                                            autocomplete="passwordConfirmation" placeholder="Confirm New Password">
                                         @error('passwordConfirmation')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -48,7 +50,7 @@
                                     </div>
                                     <div class="text-center">
                                         <button wire:click='resetPassword()' type="button"
-                                            class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">
+                                            class="btn btn-lg bg-gradient-dark btn-lg w-100 mt-4 mb-0">
                                             <span wire:loading class="spinner-border spinner-border-sm" role="status"
                                                 aria-hidden="true"></span>
                                             {{ __('Reset Password') }}
@@ -58,9 +60,8 @@
                             </div>
                             <div class="card-footer text-center pt-0 px-lg-2 px-1">
                                 <p class="mb-2 text-sm mx-auto">
-                                    <a href="{{ route('login') }}"
-                                        class="text-primary text-gradient font-weight-bold">
-                                        Login here
+                                    <a href="{{ route('login') }}" class="text-dark font-weight-bold">
+                                        Want to login ? Login here
                                     </a>
                                 </p>
                             </div>

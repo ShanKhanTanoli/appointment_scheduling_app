@@ -53,7 +53,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link me-2" href="{{ route('AdminDashboard') }}">
                                             <i class="fas fa-key opacity-6 text-dark me-1"></i>
-                                            Sign In
+                                            Login
                                         </a>
                                     </li>
                                 </ul>
