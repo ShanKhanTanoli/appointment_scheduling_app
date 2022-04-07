@@ -3,8 +3,9 @@
 /public/storage
 /storage/*.key
 /vendor
-.env
+/.env
 .env.backup
+/appointment_scheduling_app.zip
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
